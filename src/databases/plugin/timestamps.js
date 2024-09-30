@@ -1,7 +1,10 @@
 const timestamps = (schema) => {
   schema.pre("save", function (next) {
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
+    const now = new Date();
+    this.updatedAt = now;
+    if (!this.createdAt) {
+      this.createdAt = now;
+    }
     next();
   });
 };

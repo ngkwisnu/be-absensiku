@@ -1,22 +1,13 @@
 import express from "express";
 import connectionDatabase from "./databases/connection.js";
-import User from "./databases/models/user.model.js";
-import "dotenv/config";
+import { configDotenv } from "dotenv";
 
+import router from "./routes/index.js";
+configDotenv();
 const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.post("/", async (req, res) => {
-  await User.create({
-    username: "Wisnu",
-    password: "Wisnu",
-    email: "wisnu@gmail.com",
-  });
-  res.send("Success");
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api/v1", router);
 
 app.listen(process.env.PORT, (req, res) => {
   connectionDatabase();

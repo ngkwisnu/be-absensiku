@@ -48,9 +48,9 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(timestamps);
-UserSchema.plugin(softDelete);
 UserSchema.plugin(handleError);
+UserSchema.plugin(softDelete);
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("master_users", UserSchema);
 
 export default User;

@@ -7,7 +7,7 @@ import timestamps from "../plugin/timestamps.js";
 const AttendanceSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "master_users",
     required: true,
   },
   status: {
