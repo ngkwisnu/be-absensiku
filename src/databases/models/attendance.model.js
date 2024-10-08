@@ -12,26 +12,30 @@ const AttendanceSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["Present", "Absent", "Late"],
+    enum: ["Present", "Absent"],
     required: true,
-    default: "Present",
+  },
+  checkInTime: {
+    type: Date,
+    default: null,
+  },
+  checkOutTime: {
+    type: Date,
+    default: null,
   },
   notes: {
     type: String,
     default: null,
     trim: true,
   },
-  supportingFile: {
-    fileName: {
-      type: String,
-      default: null,
-      trim: true,
-    },
-    fileUrl: {
-      type: String,
-      default: null,
-      trim: true,
-    },
+  fileUrl: {
+    type: String,
+    default: null,
+    trim: true,
+  },
+  isLate: {
+    type: Boolean,
+    default: false,
   },
   isActive: {
     type: Boolean,
@@ -47,6 +51,6 @@ AttendanceSchema.plugin(timestamps);
 AttendanceSchema.plugin(softDelete);
 AttendanceSchema.plugin(handleError);
 
-const Attendance = mongoose.model("UserAttendance", AttendanceSchema);
+const Attendance = mongoose.model("user_attendance", AttendanceSchema);
 
 export default Attendance;

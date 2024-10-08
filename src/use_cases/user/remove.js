@@ -2,7 +2,7 @@ import ErrorHandler from "../../utils/ErrorHandler.js";
 import { validateId } from "../../utils/validator.js";
 import makeUserDb from "../../databases/repositories/user/index.js";
 
-const remove_user_service_func = async ({ id }) => {
+const remove_user_case_func = async ({ id }) => {
   if (!validateId(id)) {
     throw new ErrorHandler("id is not valid!");
   }
@@ -11,4 +11,4 @@ const remove_user_service_func = async ({ id }) => {
   return result;
 };
 
-export default remove_user_service_func;
+export default remove_user_case_func;

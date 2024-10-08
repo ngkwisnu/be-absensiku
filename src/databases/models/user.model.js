@@ -5,11 +5,10 @@ import softDelete from "../plugin/softDelete.js";
 import timestamps from "../plugin/timestamps.js";
 
 const UserSchema = new mongoose.Schema({
-  username: {
+  number_id: {
     type: String,
-    required: [true, "Username is required"],
+    required: [true, "Nomor Induk is required"],
     trim: true,
-    unique: true,
   },
   password: {
     type: String,
@@ -18,15 +17,24 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Email is required"],
-    unique: true,
     lowercase: true,
   },
-  name: {
+  internship_period: {
     type: String,
     default: null,
     trim: true,
   },
+  name: {
+    type: String,
+    required: [true, "Email is required"],
+    trim: true,
+  },
   institution: {
+    type: String,
+    default: null,
+    trim: true,
+  },
+  address: {
     type: String,
     default: null,
     trim: true,
@@ -35,6 +43,15 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: null,
     trim: true,
+  },
+  description: {
+    type: String,
+    defaut: null,
+    trim: true,
+  },
+  image: {
+    type: String,
+    default: null,
   },
   isActive: {
     type: Boolean,
@@ -48,7 +65,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(timestamps);
-UserSchema.plugin(handleError);
+// UserSchema.plugin(handleError);
 UserSchema.plugin(softDelete);
 
 const User = mongoose.model("master_users", UserSchema);
