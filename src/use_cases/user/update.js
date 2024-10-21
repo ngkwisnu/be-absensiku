@@ -13,7 +13,13 @@ const update_user_case_func = async ({ id, data, image }) => {
     ...dataUpdateIsValid,
     image: image.filename ? image.filename : image.image,
   });
-  dataUpdateIsValid.password = hashPassword(dataUpdateIsValid.password);
+  const userCurrentPassword =
+    await UserModel.get_user_by_number_id_repository_func({
+      number_id: dataUpdateIsValid.number_id,
+    });
+  if (userCurrentPassword.password !== dataUpdateIsValid.password) {
+    dataUpdateIsValid.password = hashPassword(dataUpdateIsValid.password);
+  }
   const updateData = await UserModel.update_user_repository_func({
     id,
     data: {

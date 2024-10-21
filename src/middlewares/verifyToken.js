@@ -14,6 +14,7 @@ const protect = (req, res, next) => {
     });
   }
   const token = req.headers["authorization"].split(" ")[1];
+  console.log(token);
   const secret = process.env.ACCESS_SECRET_KEY;
   try {
     const decoded = verifyToken(token, secret);

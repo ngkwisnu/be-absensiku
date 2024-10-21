@@ -8,12 +8,10 @@ const AttendanceSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "master_users",
-    required: true,
   },
   status: {
     type: String,
     enum: ["Present", "Absent"],
-    required: true,
   },
   checkInTime: {
     type: Date,
@@ -36,6 +34,10 @@ const AttendanceSchema = new mongoose.Schema({
   isLate: {
     type: Boolean,
     default: false,
+  },
+  deviceId: {
+    type: String,
+    default: null,
   },
   isActive: {
     type: Boolean,
