@@ -5,8 +5,10 @@ import { attendance_controller } from "../controllers/attendance/index.js";
 import protect from "../middlewares/verifyToken.js";
 
 const router = express.Router();
-const { create_attendance, checkout_attendance } = attendance_controller;
+const { create_attendance, checkout_attendance, list_attendance } =
+  attendance_controller;
 router.post("/", uploadFile, protect, callbackHandle(create_attendance));
+router.get("/", protect, callbackHandle(list_attendance));
 router.put("/:id", callbackHandle(checkout_attendance));
 
 export default router;
