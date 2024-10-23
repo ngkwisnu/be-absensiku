@@ -44,16 +44,19 @@ export default (req, res, next) => {
 
   uploadFile(req, res, (err) => {
     if (err instanceof multer.MulterError) {
+      console.log(err.message);
       return res.json({
         status: 400,
         message: err.message,
       });
     } else if (err) {
+      console.log(err.message);
       return res.json({
         status: 400,
         message: err.message,
       });
     } else {
+      console.log("object");
       return next();
     }
   });
