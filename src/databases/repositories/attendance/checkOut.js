@@ -4,7 +4,7 @@ import Attendance from "../../models/attendance.model.js";
 const attendance_checkout_repository_func = async ({ id }) => {
   const detailAttendance = await Attendance.findOneAndUpdate(
     { userId: id },
-    { $set: { checkOutTime: getLocalTime() } }
+    { $set: { checkOutTime: Date.now() } }
   );
   return detailAttendance;
 };

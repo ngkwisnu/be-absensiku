@@ -1,8 +1,10 @@
 import haversine from "haversine";
 
 const officeCoordinates = {
-  latitude: -8.7116723,
-  longitude: 115.177291,
+  // latitude: -8.711667,
+  // longitude: 115.177291,
+  latitude: -6.9724543,
+  longitude: 107.6272939,
 };
 
 const allowedRadius = 1000;

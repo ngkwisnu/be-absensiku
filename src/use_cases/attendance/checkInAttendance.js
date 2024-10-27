@@ -25,7 +25,7 @@ const check_in_attendance_case_func = async (req) => {
     fileUrl: file !== "" ? file[0].filename : "",
   };
   attendanceData.isLate = checkLateStatus();
-  attendanceData.checkInTime = getLocalTime();
+  attendanceData.checkInTime = Date.now();
   attendanceData.deviceId = deviceId || "";
   // console.log(attendanceData);
   const checkInAttendance =

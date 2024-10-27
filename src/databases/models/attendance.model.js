@@ -14,11 +14,11 @@ const AttendanceSchema = new mongoose.Schema({
     enum: ["Present", "Absent"],
   },
   checkInTime: {
-    type: Date,
+    type: Number,
     default: null,
   },
   checkOutTime: {
-    type: Date,
+    type: Number,
     default: null,
   },
   notes: {

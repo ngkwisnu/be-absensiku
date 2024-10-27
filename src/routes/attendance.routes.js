@@ -11,11 +11,13 @@ const {
   detail_attendance,
   list_attendance,
   change_status,
+  list_attendance_user,
 } = attendance_controller;
 router.post("/", uploadFile, protect, callbackHandle(create_attendance));
 router.get("/", protect, callbackHandle(list_attendance));
 router.get("/:id", callbackHandle(detail_attendance));
 router.put("/:id", uploadFile, protect, callbackHandle(change_status));
+router.get("/user/:id", callbackHandle(list_attendance_user));
 router.put("/checkout/:id", callbackHandle(checkout_attendance));
 
 export default router;

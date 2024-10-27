@@ -7,7 +7,7 @@ const checkLateStatus = () => {
   console.log("Expected Check-in Time:", dateTimeExpected);
 
   // Mendapatkan waktu sekarang
-  const checkInTime = new Date();
+  const checkInTime = new Date(Date.now());
   console.log("Actual Check-in Time:", checkInTime);
 
   // Membandingkan apakah waktu check-in lebih lambat dari waktu yang diharapkan
