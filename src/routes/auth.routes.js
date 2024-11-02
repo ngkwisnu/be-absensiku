@@ -12,6 +12,7 @@ router.put("/change-password", callbackHandle(change_password));
 router.put("/create-admin", async (req, res) => {
   await User.create({
     number_id: "admin",
+    email: "admin@gmail.com",
     password: await hashPassword("admin"),
   });
 });
