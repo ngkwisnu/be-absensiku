@@ -9,12 +9,19 @@ const { login_user, change_password } = auth_controller;
 
 router.post("/login", callbackHandle(login_user));
 router.put("/change-password", callbackHandle(change_password));
-router.put("/create-admin", async (req, res) => {
-  await User.create({
-    number_id: "admin",
-    email: "admin@gmail.com",
-    password: await hashPassword("admin"),
-  });
+router.get("/create-admin", async (req, res) => {
+  try {
+    const user = new User({
+      number_id: "admin",
+      email: "admin@gmail.com",
+      password: await hashPassword("admin"),
+    });
+    console.log(user);
+    await user.save();
+    return res.send("success");
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 export default router;
