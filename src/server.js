@@ -6,6 +6,7 @@ import cors from "cors";
 import session from "express-session";
 
 import router from "./routes/index.js";
+import dbPool from "./databases/connection.js";
 
 // Load environment variables from .env file
 configDotenv();
@@ -33,9 +34,19 @@ app.use(
 app.use("/api/v1", router);
 app.use("/api/v1/files", express.static("public/files"));
 
+const testConnection = async () => {
+  try {
+    await dbPool.getConnection();
+    console.log("Koneksi Berhasil");
+  } catch (error) {
+    console.log("Koneksi gagal:" + error);
+  }
+};
+
 // Start server and connect to the database
 app.listen(process.env.PORT, () => {
-  connectionDatabase(); // Establish DB connection
+  // connectionDatabase();
+  testConnection();
   console.log(
     `Server is listening on http://${process.env.HOST}:${process.env.PORT}`
   );

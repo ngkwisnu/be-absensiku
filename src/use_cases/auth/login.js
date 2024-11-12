@@ -9,7 +9,7 @@ const login_user_case_func = async ({ number_id, password }) => {
     const userModel = makeUserDb();
     const { getLoginValidate } = login_user_validation({ number_id, password });
     const validateLoginData = getLoginValidate();
-    const userData = await userModel.get_user_by_number_id_repository_func({
+    const [userData] = await userModel.get_user_by_number_id_repository_func({
       number_id: validateLoginData.number_id,
     });
     if (!userData) throw new ErrorHandler("Data user not found!");
@@ -22,7 +22,7 @@ const login_user_case_func = async ({ number_id, password }) => {
     });
     return token;
   } catch (error) {
-    console.log(error);
+    throw new ErrorHandler(error.message);
   }
 };
 

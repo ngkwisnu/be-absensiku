@@ -1,9 +1,8 @@
-import User from "../../models/user.model.js";
+import { User } from "../../models/user.model.js";
 
-const update_user_repository_func = async ({ id, data }) => {
-  const dataUser = await User.findOne({ _id: id });
-  Object.assign(dataUser, data);
-  await dataUser.save();
+const update_user_repository_func = async ({ id, body }) => {
+  console.log(body);
+  const dataUser = await User.update({ id: id, data: body });
   return dataUser;
 };
 

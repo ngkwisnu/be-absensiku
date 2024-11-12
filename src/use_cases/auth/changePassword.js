@@ -6,12 +6,12 @@ import ErrorHandler from "../../utils/ErrorHandler.js";
 const change_password_case_func = async ({ email, password }) => {
   try {
     const UserModel = makeUserDb();
-    const getAccount = await UserModel.get_user_by_email_repository_func({
-      email,
-    });
     password = hashPassword(password);
-    getAccount.password = password;
-    await getAccount.save();
+    const [getAccount] =
+      await UserModel.change_password_user_by_email_repository_func({
+        email,
+        password,
+      });
     return getAccount;
   } catch (error) {
     console.log(error);

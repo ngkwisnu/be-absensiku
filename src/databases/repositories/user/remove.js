@@ -1,10 +1,7 @@
-import User from "../../models/user.model.js";
+import { User } from "../../models/user.model.js";
 
 const remove_user_repository_func = async ({ id }) => {
-  const removeUser = await User.findOneAndUpdate(
-    { _id: id },
-    { deletedAt: new Date() }
-  );
+  const removeUser = await User.remove(id);
   return removeUser;
 };
 

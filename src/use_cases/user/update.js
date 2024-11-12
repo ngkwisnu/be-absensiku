@@ -6,24 +6,23 @@ import { update_user_validation } from "../../validations/user/index.js";
 
 const update_user_case_func = async ({ id, data, image }) => {
   const UserModel = makeUserDb();
-  if (!validateId(id)) throw new ErrorHandler("id is not valid!");
-  const { getDataValid } = update_user_validation(data);
-  const dataUpdateIsValid = getDataValid();
+  // const { getDataValid } = update_user_validation(data);
+  // const data = getDataValid();
   console.log({
-    ...dataUpdateIsValid,
+    ...data,
     image: image.filename ? image.filename : image.image,
   });
   const userCurrentPassword =
     await UserModel.get_user_by_number_id_repository_func({
-      number_id: dataUpdateIsValid.number_id,
+      number_id: data.number_id,
     });
-  if (userCurrentPassword.password !== dataUpdateIsValid.password) {
-    dataUpdateIsValid.password = hashPassword(dataUpdateIsValid.password);
+  if (userCurrentPassword.password !== data.password) {
+    data.password = hashPassword(data.password);
   }
   const updateData = await UserModel.update_user_repository_func({
     id,
-    data: {
-      ...dataUpdateIsValid,
+    body: {
+      ...data,
       image: image.filename ? image.filename : image.image,
     },
   });

@@ -8,7 +8,7 @@ const isUserRegistered = async ({ number_id, email }) => {
   const userEmail = await userModel.get_user_by_email_repository_func({
     email,
   });
-  if (userEmail || userNumberId) {
+  if (userEmail.length > 0 || userNumberId.length > 0) {
     return true;
   } else {
     return false;

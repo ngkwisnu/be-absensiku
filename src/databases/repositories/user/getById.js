@@ -1,7 +1,7 @@
-import User from "../../models/user.model.js";
+import { User } from "../../models/user.model.js";
 
 const get_user_by_id_repository_func = async ({ id }) => {
-  const user_detail = await User.findOne({ _id: id });
+  const user_detail = await User.findOne({ id: id });
   return user_detail;
 };
 
