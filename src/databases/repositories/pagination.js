@@ -11,14 +11,14 @@ export const pagination = async ({ query }, connection, tableName) => {
   );
   const total = totalResult[0].total;
 
-  console.log(`SELECT * FROM ${tableName} WHERE isActive = TRUE LIMIT ?, ?`, [
-    startIndex,
-    limit,
-  ]);
+  console.log(
+    `SELECT * FROM ${tableName} WHERE deletedAt IS NULL AND isActive = TRUE LIMIT ?, ?`,
+    [startIndex, limit]
+  );
 
   // Mengambil data dengan batasan dan offset
   const [list] = await connection.execute(
-    `SELECT * FROM ${tableName} LIMIT ${startIndex}, ${limit}`
+    `SELECT * FROM ${tableName} WHERE deletedAt IS NULL AND isActive = TRUE LIMIT ${startIndex}, ${limit}`
   );
 
   return {

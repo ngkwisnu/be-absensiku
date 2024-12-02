@@ -1,8 +1,7 @@
-import Attendance from "../../models/attendance.model.js";
+import { Attendance } from "../../models/attendance.model.js";
 
 const attendance_by_id_repository_func = async ({ id }) => {
-  const detailAttendance = await Attendance.findOne({ _id: id });
-  console.log(detailAttendance);
+  const detailAttendance = await Attendance.findById(id);
   return detailAttendance;
 };
 

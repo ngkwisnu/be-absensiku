@@ -73,10 +73,12 @@
 // export default User;
 
 import dbPool from "../connection.js";
-import bcrypt from "bcrypt";
 
-const find = () => {
-  const SQLQuery = "SELECT * FROM master_users";
+const find = (includeDeleted = false) => {
+  const SQLQuery = includeDeleted
+    ? "SELECT * FROM master_users"
+    : "SELECT * FROM master_users WHERE deletedAt IS NULL";
+
   return dbPool.execute(SQLQuery);
 };
 
@@ -87,6 +89,20 @@ const findById = async (id) => {
       [id]
     );
     return result[0];
+  } catch (error) {
+    console.error("Error in getUserById:", error);
+    throw error;
+  }
+};
+
+const findByName = async (data) => {
+  try {
+    const [value] = Object.keys(data);
+    const result = await dbPool.query(
+      `SELECT * FROM master_users WHERE ${value} = ?`,
+      [data[value]]
+    );
+    return result;
   } catch (error) {
     console.error("Error in getUserById:", error);
     throw error;
@@ -127,7 +143,7 @@ const changePassword = ({ password, email }) => {
 };
 
 const update = async ({ id, data }) => {
-  // console.log(data);
+  console.log(data);
   try {
     const {
       email,
@@ -164,25 +180,31 @@ const update = async ({ id, data }) => {
     `;
 
     const values = [
-      email,
-      number_id,
-      password,
-      internship_period,
-      name,
-      institution,
-      address,
-      contactNumber,
-      description,
-      image,
-      isActive,
-      deletedAt,
+      email || "",
+      number_id || "",
+      password || "",
+      internship_period === "null" ? null : internship_period,
+      name === "null" ? null : name,
+      institution === "null" ? null : institution,
+      address === "null" ? null : address,
+      contactNumber === "null" ? null : contactNumber,
+      description === "null" ? null : description,
+      image || null,
+      isActive || false,
+      deletedAt || null,
       id,
     ];
 
-    return dbPool.execute(SQLQuery, values);
+    const [result] = await dbPool.execute(SQLQuery, values);
+
+    if (result.affectedRows === 0) {
+      throw new Error(`User with ID ${id} not found`);
+    }
+
+    return { success: true, message: "User updated successfully" };
   } catch (error) {
-    console.log(error);
-    throw new Error("Failed to update user data");
+    console.error("Error updating user:", error);
+    throw new Error(error.message || "Failed to update user data");
   }
 };
 
@@ -195,16 +217,16 @@ const update = async ({ id, data }) => {
 //   return dbPool.execute(SQLQuery, values);
 // };
 
-const remove = (id) => {
+const remove = async (id) => {
   try {
     const SQLQuery = `
-        UPDATE master_users
-        SET isActive = ${false} WHERE id = ?
+        DELETE FROM master_users WHERE id = ?
     `;
     const values = [id];
+    console.log(SQLQuery, values);
     return dbPool.execute(SQLQuery, values);
   } catch (error) {
-    console.error("Error in delete data ", error);
+    console.error("Error in delete data", error);
     throw error;
   }
 };
@@ -275,4 +297,5 @@ export const User = {
   changePassword,
   update,
   remove,
+  findByName,
 };

@@ -1,5 +1,5 @@
 import ErrorHandler from "../../../utils/ErrorHandler.js";
-import Attendance from "../../models/attendance.model.js";
+import { Attendance } from "../../models/attendance.model.js";
 
 const change_status_attendance_repository_func = async ({
   id,
@@ -38,13 +38,7 @@ const change_status_attendance_repository_func = async ({
       `Attempting to update attendance with id: ${id}, status: ${status}`
     ); // Debugging log
 
-    const change = await Attendance.findOneAndUpdate(
-      { _id: id },
-      { $set: updateFields },
-      { new: true } // Mengembalikan dokumen yang diupdate
-    ).orFail(
-      new ErrorHandler(`Failed to change attendance status to ${status}`)
-    );
+    const change = await Attendance.update({ id: id, data: updateFields });
 
     console.log("Attendance updated successfully:", change); // Debugging log
 

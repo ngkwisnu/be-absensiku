@@ -1,4 +1,4 @@
-import Attendance from "../../models/attendance.model.js";
+import { Attendance } from "../../models/attendance.model.js";
 
 const create_attendance_repository_func = async ({ data }) => {
   console.log(data);

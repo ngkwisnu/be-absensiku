@@ -8,7 +8,6 @@ import generateRandomString from "../../utils/randString.js";
 import deviceAlreadyUsed from "../../services/attendance/deviceAlreadyUsed.js";
 
 const check_in_attendance_case_func = async (req) => {
-  console.log(req);
   const deviceId = await deviceAlreadyUsed(req.body);
   const checkingLocation = checkingPosition(req.body);
   if (!checkingLocation) throw new ErrorHandler("Tidak sesuai lokasi");

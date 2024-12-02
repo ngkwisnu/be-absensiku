@@ -8,10 +8,10 @@ const update_user_case_func = async ({ id, data, image }) => {
   const UserModel = makeUserDb();
   // const { getDataValid } = update_user_validation(data);
   // const data = getDataValid();
-  console.log({
-    ...data,
-    image: image.filename ? image.filename : image.image,
-  });
+  // console.log({
+  //   ...data,
+  //   image: image.filename ? image.filename : image.image,
+  // });
   const userCurrentPassword =
     await UserModel.get_user_by_number_id_repository_func({
       number_id: data.number_id,
