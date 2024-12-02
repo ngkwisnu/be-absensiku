@@ -16,7 +16,7 @@ const list_user_repository_func = async ({ query }) => {
         el.address || null,
         el.contactNumber || null,
         el.description || null,
-        el.isActive || false,
+        el.isActive === 1 ? true : false,
         el.deletedAt || null,
         (el.image = el.image
           ? el.image
@@ -45,7 +45,7 @@ const list_user_repository_func = async ({ query }) => {
         el.address || null,
         el.contactNumber || null,
         el.description || null,
-        el.isActive || false,
+        el.isActive === 1 ? true : false,
         el.deletedAt || null,
         (el.image = el.image
           ? el.image

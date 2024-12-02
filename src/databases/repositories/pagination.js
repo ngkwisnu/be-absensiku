@@ -18,7 +18,7 @@ export const pagination = async ({ query }, connection, tableName) => {
 
   // Mengambil data dengan batasan dan offset
   const [list] = await connection.execute(
-    `SELECT * FROM ${tableName} WHERE deletedAt IS NULL AND isActive = TRUE LIMIT ${startIndex}, ${limit}`
+    `SELECT * FROM ${tableName} LIMIT ${startIndex}, ${limit}`
   );
 
   return {

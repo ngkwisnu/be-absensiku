@@ -26,12 +26,10 @@ const check_in_attendance_case_func = async (req) => {
   attendanceData.isLate = checkLateStatus();
   attendanceData.checkInTime = Date.now();
   attendanceData.deviceId = deviceId || "";
-  // console.log(attendanceData);
   const checkInAttendance =
     await attendanceModel.create_attendance_repository_func({
       data: attendanceData,
     });
-  console.log(checkInAttendance);
   return checkInAttendance;
 };
 

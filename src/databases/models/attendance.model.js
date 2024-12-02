@@ -7,8 +7,19 @@ const find = () => {
 };
 
 const populate = () => {
-  const SQLQuery =
-    "SELECT * FROM user_attendance JOIN users ON attendance.user_id = users.id";
+  const SQLQuery = `
+    SELECT 
+      user_attendance.id AS attendanceId, 
+      user_attendance.userId, 
+      user_attendance.status, 
+      user_attendance.checkInTime, 
+      user_attendance.checkOutTime,
+      master_users.id AS userId,
+      master_users.name,
+      master_users.email
+    FROM user_attendance
+    JOIN master_users ON user_attendance.userId = master_users.id
+  `;
   return dbPool.execute(SQLQuery);
 };
 
@@ -41,12 +52,22 @@ const findOne = async (data) => {
 };
 
 const create = ({ data }) => {
-  const { userId, status, notes, fileUrl } = data;
+  console.log(data);
+  const { userId, status, notes, fileUrl, isLate, checkInTime, deviceId } =
+    data;
   const SQLQuery = `
-        INSERT INTO user_attendance (userId, status, notes, fileUrl) 
-        VALUES (?, ?, ?, ?)
+        INSERT INTO user_attendance (userId, status, notes, fileUrl, isLate, checkInTime, deviceId) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
-  const values = [userId, status, notes, fileUrl];
+  const values = [
+    userId,
+    status,
+    notes,
+    fileUrl,
+    isLate,
+    checkInTime,
+    deviceId,
+  ];
   return dbPool.execute(SQLQuery, values);
 };
 
@@ -60,7 +81,7 @@ const update = async ({ id, data }) => {
       SET 
         status = ?, 
         notes = ?, 
-        fileUrl = ?, 
+        fileUrl = ?
       WHERE id = ?
     `;
 
@@ -74,19 +95,15 @@ const update = async ({ id, data }) => {
 };
 
 const updateCheckOut = async ({ userId }) => {
-  // console.log(data);
   try {
-    const { status, notes, fileUrl } = data;
-
     const SQLQuery = `
       UPDATE user_attendance
       SET 
-        checkOutTime = ?, 
+        checkOutTime = ? 
       WHERE userId = ?
     `;
 
     const values = [Date.now(), userId];
-
     return dbPool.execute(SQLQuery, values);
   } catch (error) {
     console.log(error);

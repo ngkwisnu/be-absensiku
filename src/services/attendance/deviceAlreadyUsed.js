@@ -6,7 +6,7 @@ const deviceAlreadyUsed = async ({ deviceId }) => {
   const attendance = await AttendanceModel.get_attendance_by_ip_repository_func(
     { ip: deviceId }
   );
-  if (!attendance) {
+  if (!attendance || attendance.length < 1) {
     return deviceId;
   } else {
     throw new ErrorHandler("Device sudah digunakan!");

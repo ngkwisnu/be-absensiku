@@ -7,7 +7,6 @@ const check_out_attendance_case_func = async (req) => {
     const checkout = await AttendanceModel.attendance_checkout_repository_func(
       req.params
     );
-    console.log(checkout);
     return checkout;
   } catch (error) {
     throw new ErrorHandler(error.message);

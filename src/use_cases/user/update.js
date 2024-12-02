@@ -16,7 +16,7 @@ const update_user_case_func = async ({ id, data, image }) => {
     await UserModel.get_user_by_number_id_repository_func({
       number_id: data.number_id,
     });
-  if (userCurrentPassword.password !== data.password) {
+  if (userCurrentPassword[0].password !== data.password) {
     data.password = hashPassword(data.password);
   }
   const updateData = await UserModel.update_user_repository_func({

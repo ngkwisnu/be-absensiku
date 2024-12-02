@@ -123,6 +123,20 @@ const findOne = async (data) => {
   }
 };
 
+const findOneByNumberId = async (data) => {
+  try {
+    const [value] = Object.keys(data);
+    const result = await dbPool.query(
+      `SELECT * FROM master_users WHERE isActive = ? AND ${value} = ?`,
+      [true, data[value]]
+    );
+    return result[0];
+  } catch (error) {
+    console.error("Error in getUserById:", error);
+    throw error;
+  }
+};
+
 const create = (body) => {
   const { email, number_id, password, name, isActive } = body;
   const SQLQuery = `
@@ -190,7 +204,7 @@ const update = async ({ id, data }) => {
       contactNumber === "null" ? null : contactNumber,
       description === "null" ? null : description,
       image || null,
-      isActive || false,
+      isActive === "true" ? true : false,
       deletedAt || null,
       id,
     ];
@@ -298,4 +312,5 @@ export const User = {
   update,
   remove,
   findByName,
+  findOneByNumberId,
 };

@@ -16,7 +16,7 @@ const login_user_case_func = async ({ number_id, password }) => {
     const passwordIsMatch = comparePassword(password, userData.password);
     if (!passwordIsMatch) throw new ErrorHandler("Password is not match!");
     const token = generate_token({
-      id: userData._id,
+      id: userData.id,
       number_id: userData.number_id,
       email: userData.email,
     });
