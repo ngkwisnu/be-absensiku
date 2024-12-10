@@ -8,7 +8,7 @@ const update_user_function =
       const result = await update_user_case_func({
         id,
         data: body,
-        image: req.fileImage?.image ? req.fileImage.image[0] : body,
+        image: req.fileImage?.image ? req.fileImage?.image[0] : body,
       });
       return createResponse(result);
     } catch (error) {

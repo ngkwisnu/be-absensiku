@@ -20,7 +20,7 @@ const list_user_repository_func = async ({ query }) => {
         el.deletedAt || null,
         (el.image = el.image
           ? el.image
-          : "https://88gzhtq3-3001.asse.devtunnels.ms/api/v1/files/profile-circle-icon-1024x1024-qv2gufvw (1).png");
+          : "https://88gzhtq3-8000.asse.devtunnels.ms/api/v1/files/profile-circle-icon-1024x1024-qv2gufvw (1).png");
       return el;
     });
     console.log(data.data);
@@ -49,7 +49,7 @@ const list_user_repository_func = async ({ query }) => {
         el.deletedAt || null,
         (el.image = el.image
           ? el.image
-          : "https://88gzhtq3-3001.asse.devtunnels.ms/api/v1/files/profile-circle-icon-1024x1024-qv2gufvw (1).png");
+          : "https://88gzhtq3-8000.asse.devtunnels.ms/api/v1/files/profile-circle-icon-1024x1024-qv2gufvw (1).png");
       return el;
     });
     return rows.length ? rows : null; // Mengembalikan data pertama atau null jika tidak ada hasil

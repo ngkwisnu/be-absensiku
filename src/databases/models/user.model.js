@@ -123,13 +123,13 @@ const findOne = async (data) => {
   }
 };
 
-const findOneByNumberId = async (data) => {
+const findOneByNumberId = async ({ number_id }) => {
   try {
-    const [value] = Object.keys(data);
     const result = await dbPool.query(
-      `SELECT * FROM master_users WHERE isActive = ? AND ${value} = ?`,
-      [true, data[value]]
+      `SELECT * FROM master_users WHERE number_id = ?`,
+      [number_id]
     );
+    console.log(result);
     return result[0];
   } catch (error) {
     console.error("Error in getUserById:", error);
